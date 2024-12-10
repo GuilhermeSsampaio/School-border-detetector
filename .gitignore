@@ -1,2 +1,6 @@
 venv
 *.jpg
+*.zip
+__pycache__
+pycache
+*.pyc

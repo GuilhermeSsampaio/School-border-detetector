@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-def conversao(imagem_path):
+def conversao(imagem_path, output_path):
     # Carrega a imagem em escala de cinza
     imagem = cv2.imread(imagem_path, cv2.IMREAD_GRAYSCALE)
 
@@ -20,9 +20,8 @@ def conversao(imagem_path):
     kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
     imagem_vetorizada = cv2.filter2D(imagem_vetorizada, -1, kernel)
 
-   # Salva a imagem resultante
-    resultado_path = 'resultado.jpg'
-    cv2.imwrite(resultado_path, imagem_vetorizada)
+    # Salva a imagem resultante
+    cv2.imwrite(output_path, imagem_vetorizada)
 
-    return resultado_path
+    return output_path
 
