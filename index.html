@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upload de Imagem</title>
+  </head>
+  <body>
+    <h1>Upload de Imagem</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input type="file" id="fileInput" name="file" />
+      <button type="button" onclick="uploadFile()">Upload</button>
+    </form>
+    <br />
+    <a id="downloadLink" style="display: none">Salvar Imagem</a>
+    <script>
+      async function uploadFile() {
+        const formData = new FormData();
+        const fileInput = document.getElementById("fileInput");
+        formData.append("file", fileInput.files[0]);
+
+        const response = await fetch("/post", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          const blob = await response.blob();
+          const url = URL.createObjectURL(blob);
+          const img = document.createElement("img");
+          img.src = url;
+          document.body.appendChild(img);
+
+          const downloadLink = document.getElementById("downloadLink");
+          downloadLink.href = url;
+          downloadLink.download = "resultado.jpg";
+          downloadLink.style.display = "block";
+          downloadLink.textContent = "Salvar Imagem";
+        } else {
+          console.error("Erro ao fazer upload do arquivo");
+        }
+      }
+    </script>
+  </body>
+</html>
